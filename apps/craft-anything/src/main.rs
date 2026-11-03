@@ -76,6 +76,7 @@ fn main() -> eframe::Result {
             log::error!("the window couldn't start: {e}");
             // Without a window the app would just vanish (#166): say why, and where the log is.
             let log = craft_anything_engine::settings::config_dir().join("desktop.log");
+            #[cfg(not(target_os = "android"))]
             let _ = rfd::MessageDialog::new()
                 .set_level(rfd::MessageLevel::Error)
                 .set_title("Craft Anything couldn't open its window")

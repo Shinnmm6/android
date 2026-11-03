@@ -940,9 +940,9 @@ impl CraftApp {
         if self.headless {
             return;
         }
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(any(target_arch = "wasm32", target_os = "android")))]
         let suggested = game_files::suggested_name(self);
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(any(target_arch = "wasm32", target_os = "android")))]
         self.jobs.spawn("Choose a file", false, move |_| {
             let d = rfd::AsyncFileDialog::new();
             if matches!(pick, Pick::Pictures | Pick::Attach) {
@@ -1203,7 +1203,7 @@ impl CraftApp {
         }
         let name = self.view.active_target().map(|t| format!("{} report.md", t.name)).unwrap_or_else(|| "Craft Anything report.md".into());
         let engine = self.engine.clone();
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(any(target_arch = "wasm32", target_os = "android")))]
         self.jobs.spawn("Export report", true, move |_| {
             let picked = pollster::block_on(
                 rfd::AsyncFileDialog::new().set_title(tr("Save the report")).set_file_name(&name).add_filter("Markdown", &["md"]).save_file(),

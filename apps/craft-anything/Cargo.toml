@@ -20,7 +20,6 @@ eframe = { workspace = true, features = ["default_fonts", "wgpu", "accesskit", "
 log = { workspace = true }
 # The one dialog the app shows itself: when its window can't open, so a start that shows nothing
 # still says why (#166).
-rfd = { workspace = true }
 
 [features]
 wasm-plugins = ["craft-anything-engine/wasm-plugins"]
@@ -31,3 +30,6 @@ winresource = "0.1"
 
 [target.'cfg(target_os = "android")'.dependencies]
 android-activity = { version = "0.6", features = ["native-activity"] }
+
+[target.'cfg(not(target_os = "android"))'.dependencies]
+rfd = { workspace = true }
