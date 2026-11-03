@@ -73,6 +73,7 @@ pub fn disclosure_icon(ui: &mut Ui, openness: f32, resp: &Response) {
 /// Give a field without a visible label a name for screen readers (WCAG 4.1.2); egui doesn't
 /// use the hint text for that.
 pub fn named(resp: Response, name: &str) -> Response {
+    #[cfg(not(target_os = "android"))]
     resp.ctx.accesskit_node_builder(resp.id, |b| b.set_label(tr(name)));
     resp
 }

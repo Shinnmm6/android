@@ -18,3 +18,4 @@ corpus/
 .claude/settings.local.json
 android-check.log
 ci-log*/
+apk/

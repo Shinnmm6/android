@@ -20,7 +20,7 @@ egui = { workspace = true }
 # SVG icons (Lucide) rasterised at the exact on-screen size with resvg (pure Rust).
 egui_extras = { workspace = true, features = ["svg"] }
 # `links`: without it `ctx.open_url` is a silent no-op (the workspace turns eframe's defaults off).
-eframe = { workspace = true, features = ["default_fonts", "wgpu", "accesskit", "links"] }
+eframe = { workspace = true, features = ["default_fonts", "wgpu", "links"] }
 serde = { workspace = true }
 serde_json = { workspace = true }
 log = { workspace = true }
@@ -38,3 +38,4 @@ tempfile = "3"
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 rfd = { workspace = true }
+eframe = { workspace = true, features = ["accesskit"] }
