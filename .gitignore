@@ -16,3 +16,5 @@ corpus/
 *.pfx
 *.key
 .claude/settings.local.json
+android-check.log
+ci-log*/
