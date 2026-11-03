@@ -61,6 +61,8 @@ pub fn run_with(configure: impl FnOnce(&mut eframe::NativeOptions)) -> eframe::R
         Box::new(move |cc| {
             log::info!("window open");
             CraftApp::setup_context(&cc.egui_ctx);
+            #[cfg(target_os = "android")]
+            cc.egui_ctx.set_zoom_factor(0.5);
             let mut app = CraftApp::new(engine, hub);
             app.load_prefs(cc.storage);
             if let Some(p) = open {
