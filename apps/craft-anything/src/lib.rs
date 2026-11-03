@@ -263,9 +263,17 @@ mod graphics_tests {
 
 /// Android starts the app here instead of in `main`.
 #[cfg(target_os = "android")]
-#[allow(unsafe_code)]
+#[allow(unsafe_code, unused_unsafe)]
 #[unsafe(no_mangle)]
 fn android_main(app: android_activity::AndroidApp) {
+    // Android has no home folder and a read-only working directory, so everything the app
+    // writes (settings, projects, logs) goes under the app's own private folder.
+    if let Some(dir) = app.internal_data_path() {
+        let _ = std::fs::create_dir_all(&dir);
+        // SAFETY: nothing else is running yet.
+        unsafe { std::env::set_var("HOME", &dir) };
+        let _ = std::env::set_current_dir(&dir);
+    }
     if let Err(e) = run_with(|options| options.android_app = Some(app)) {
         log::error!("the app stopped: {e}");
     }
