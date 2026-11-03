@@ -30,6 +30,25 @@ winresource = "0.1"
 
 [target.'cfg(target_os = "android")'.dependencies]
 android-activity = { version = "0.6", features = ["native-activity"] }
+eframe = { workspace = true, features = ["android-native-activity"] }
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 rfd = { workspace = true }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[package.metadata.android]
+package = "com.shinnmm6.craftandroid"
+apk_name = "CraftAndroid"
+build_targets = ["aarch64-linux-android"]
+
+[package.metadata.android.sdk]
+min_sdk_version = 26
+target_sdk_version = 34
+
+[package.metadata.android.application]
+label = "Craft Android"
+
+[[package.metadata.android.uses_permission]]
+name = "android.permission.INTERNET"

@@ -65,7 +65,7 @@ wasmprinter = { version = "0.261", default-features = false, features = ["compon
 regex = "1"
 
 [workspace.lints.rust]
-unsafe_code = "forbid"
+unsafe_code = "deny"
 
 [workspace.lints.clippy]
 dbg_macro = "warn"

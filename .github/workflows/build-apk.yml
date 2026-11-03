@@ -1,0 +1,23 @@
+name: build-apk
+on: [workflow_dispatch]
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    env:
+      CARGO_PROFILE_DEV_DEBUG: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+      - run: cargo install cargo-apk
+      - name: Build APK
+        shell: bash
+        run: cargo apk build -p craft-anything --lib 2>&1 | tee apk-build.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: apk-build
+          path: |
+            apk-build.log
+            target/debug/apk/*.apk
